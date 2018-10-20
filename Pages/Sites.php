@@ -10,8 +10,8 @@ use Lightning\Tools\Request;
 
 class Sites extends Table {
 
-    protected $table = 'site';
-    protected $key = 'site_id';
+    const TABLE = 'site';
+    const PRIMARY_KEY = 'site_id';
 
     protected $duplicatable = true;
 

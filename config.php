@@ -8,5 +8,15 @@ return [
             'admin/sites/subdomains' => 'Modules\\SiteManager\\Pages\\Subdomains',
             'admin/sites/redirects' => 'Modules\\SiteManager\\Pages\\Redirects',
         ]
-    ]
+    ],
+    'jobs' => [
+        'checkout-mailer' => [
+            // Override the checkout mailer
+            'class' => \Modules\SiteManager\Jobs\CheckoutMail::class,
+        ],
+        'auto-mailer' => [
+            // Override the auto mailer
+            'class' => \Modules\SiteManager\Jobs\AutoMailer::class,
+        ],
+    ],
 ];
