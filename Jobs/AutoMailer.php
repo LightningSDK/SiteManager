@@ -9,8 +9,6 @@ use Source\Model\Site;
 
 class AutoMailer extends Mailer {
 
-    use SiteIteratorTrait;
-
     const NAME = 'SiteManager - Mailer';
 
     protected $currentSite;
