@@ -32,7 +32,7 @@ class Certificates extends CLI {
     protected function ensureCertsExist($domain) {
         if  (!file_exists("{$this->cert_path}{$domain}/fullchain.pem")) {
             $this->out("Creating cert for domain: $domain");
-            $command = "certbot-auto certonly --webroot -w {$this->webroot} -d {$domain} -d www.{$domain}}";
+            $command = "certbot-auto certonly --webroot -w {$this->webroot} -d {$domain} -d www.{$domain}";
             $this->out('Running command: ' . $command);
             if (!Configuration::get('debug')) {
                 exec($command, $resp);
