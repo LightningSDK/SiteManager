@@ -11,8 +11,9 @@ return [
             'admin/affiliates' => 'Modules\\SiteManager\\Pages\\Checkout\\Admin\\Affiliates',
         ],
         'cli_only' => [
-            'domains' => 'Modules\\SiteManager\\Commands\\Domains',
-            'nginx' => 'Modules\\SiteManager\\Commands\\Nginx',
+            'site-domains' => 'Modules\\SiteManager\\Commands\\Domains',
+            'site-nginx' => 'Modules\\SiteManager\\Commands\\Nginx',
+            'site-certificates' => 'Modules\\SiteManager\\Commands\\Certificates',
         ]
     ],
     'jobs' => [
