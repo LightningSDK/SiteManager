@@ -28,7 +28,7 @@ return [
     'modules' => [
         'site-manager' => [
             'cert-path' => '/etc/letsencrypt/live/',
-            'nginx-config-file' => '/etc/nginx/sites-avaialable/lightning-site-manager',
+            'nginx-config-file' => '/etc/nginx/sites-available/lightning-site-manager',
             'dns' => [
                 'ipv4' => '127.0.0.1',
                 'ipv6' => '0000:0000',
