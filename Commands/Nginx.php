@@ -29,23 +29,24 @@ class Nginx extends CLI {
 
         $compiled_nginx = '';
         foreach ($domains as $d) {
+            $this->out("adding site: {$d['domain']}");
             $compiled_nginx .= $this->configureDomain($d);
             $subdomains = Database::getInstance()->selectAll('site_redirect', ['site_id' => $d['site_id']]);
             foreach ($subdomains as $sd) {
                 if  (file_exists("{$this->cert_path}{$sd['domain']}/fullchain.pem")) {
-                    echo "{$sd['domain']} =>  {$d['domain']} \n";
+                    $this->out("Adding redirect {$sd['domain']} => {$d['domain']}");
                     $compiled_nginx .= $this->configureDomain($sd);
                 } else {
-                    echo "no certificate for {$sd['domain']} =>  {$d['domain']} \n";
+                    $this->out("no certificate for {$sd['domain']} =>  {$d['domain']}");
                 }
             }
         }
 
         if (Configuration::get('debug')) {
-            echo "-------------------- FILE " . $compiled_config_file . " ----------------------\n";
-            echo $compiled_nginx;
-            echo "\n\n";
+            $this->out("-------------------- FILE " . $compiled_config_file . " ----------------------");
+            $this->out($compiled_nginx);
         } else {
+            $this->out("Writing to $compiled_config_file");
             file_put_contents($compiled_config_file, $compiled_nginx);
         }
     }
