@@ -2,6 +2,7 @@
 
 namespace Modules\SiteManager\Jobs;
 
+use Exception;
 use Lightning\Tools\Configuration;
 use Source\Model\Site;
 
@@ -13,8 +14,12 @@ trait SiteIteratorTrait {
             Configuration::reload();
             $site->updateConfig();
             if (Configuration::get('stripe.public')) {
-                $this->out('Sending checkout mail for: ' . $site->domain);
-                parent::execute($job);
+                $this->out('Switching to site: ' . $site->domain);
+                try {
+                    parent::execute($job);
+                } catch (Exception $e) {
+                    $this->out('Exception while executing job: ' . $e->getMessage());
+                }
             }
         }
     }
