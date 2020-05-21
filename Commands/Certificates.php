@@ -17,7 +17,7 @@ class Certificates extends CLI {
         // This only updates SSL sites because they need a custom entry for an ssl file
         // This assumes the certificate has been created with: certbot-auto ^Crtonly --webroot -w /var/www/sites -d concurrency.me -d www.concurrency.me
         $this->cert_path = Configuration::get('modules.site-manager.cert-path');
-        $this->webroot = Configuration::get('web_root');
+        $this->webroot = HOME_PATH;
         $domains = Database::getInstance()->selectAll('site', ['requires_ssl' => 1, 'enabled' => 1]);
 
         foreach ($domains as $d) {
