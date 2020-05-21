@@ -8,7 +8,7 @@ use Lightning\Tools\Database;
 
 class Domains extends CLI {
     public function executeUpdate () {
-        $domains = Database::getInstance()->selectAll('site');
+        $domains = Database::getInstance()->selectAll('site', ['enabled' => 1]);
         $compiled_zones_content = '';
         $ipv4 = Configuration::get('modules.site-manager.dns.ipv4');
         $ipv6 = Configuration::get('modules.site-manager.dns.ipv6');
@@ -18,7 +18,9 @@ class Domains extends CLI {
         $compiled_directory = Configuration::get('modules.site-manager.dns.bind9.compiled-directory');
         $generic_domain = Configuration::get('modules.site-manager.dns.bind9.generic-domain-config');
         $compiled_zones_master_file = Configuration::get('modules.site-manager.dns.bind9.compiled-zones-master-file');
-        mkdir($compiled_directory, 755, true);
+        if (!Configuration::get('debug')) {
+            mkdir($compiled_directory, 755, true);
+        }
         foreach ($domains as $d) {
             $subdomains = Database::getInstance()->selectAll('site_subdomain', ['site_id' => $d['site_id']]);
             if ($subdomains) {
