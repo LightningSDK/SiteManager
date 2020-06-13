@@ -1,0 +1,6 @@
+{
+  "name": "lightningsdk/sitemanager",
+  "type": "library",
+  "description": "Adds site multi site manager capability.",
+  "version": "1.0.0"
+}
