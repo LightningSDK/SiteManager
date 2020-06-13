@@ -13,8 +13,8 @@ class Domains extends CLI {
         $ipv4 = Configuration::get('modules.site-manager.dns.ipv4');
         $ipv6 = Configuration::get('modules.site-manager.dns.ipv6');
         $postmaster = Configuration::get('modules.site-manager.dns.dmarc.postmaster');
-        $default_template = file_get_contents(Configuration::get('modules.site-manager.dns.default-zone-template'));
-        $nomail_template = file_get_contents(Configuration::get('modules.site-manager.dns.nomail-zone-template'));
+        $zone_dns_header = file_get_contents(Configuration::get('modules.site-manager.dns.bind9.zone-template-dns-header'));
+        $zone_mail = file_get_contents(Configuration::get('modules.site-manager.dns.bind9.zone-template-mail'));
         $compiled_directory = Configuration::get('modules.site-manager.dns.bind9.compiled-directory');
         $generic_domain = Configuration::get('modules.site-manager.dns.bind9.generic-domain-config');
         $compiled_zones_master_file = Configuration::get('modules.site-manager.dns.bind9.compiled-zones-master-file');
@@ -60,7 +60,7 @@ class Domains extends CLI {
                             } elseif ($s['subdomain'] == 'www') {
                                 $custom_www = true;
                             }
-                            $custom_zone_contents .= "\n" . $s['subdomain'] . ' IN ' . $s['type'] . ' ' . $s['location'] . "\n";
+                            $custom_zone_contents .= "\n" . $s['subdomain'] . ' IN ' . $s['type'] . ' ' . $s['location'];
                             break;
                         case 'TXT':
                             if (strpos($s['location'], '"') !== false && strlen($s['location']) > 100) {
@@ -72,7 +72,7 @@ class Domains extends CLI {
                             if ($s['subdomain'] == '_dmarc') {
                                 $custom_dmarc = true;
                             }
-                            $custom_zone_contents .= "\n" . $s['subdomain'] . ' IN ' . $s['type'] . ' ' . $s['location'] . "\n";
+                            $custom_zone_contents .= "\n" . $s['subdomain'] . ' IN ' . $s['type'] . ' ' . $s['location'];
                             break;
                     }
                 }
@@ -98,15 +98,20 @@ class Domains extends CLI {
                     $custom_zone_contents .= "\n" . '_dmarc 14400   IN    TXT     "v=DMARC1;pct=100;ruf=mailto:' . $postmaster . '};rua=mailto:' . $postmaster . ';p=quarantine;sp=reject;adkim=r;aspf=r"';
                 }
 
+                // if the domain did not have a default mail MX record
                 if (!$has_default_mx) {
-                    $zone_prefix = $default_template;
                     $custom_zone_contents .= "\n" . '@       IN       MX  10   mail' . "\n";
                 } else {
-                    $zone_prefix = $nomail_template;
+                    $custom_zone_contents .= $zone_mail;
                 }
 
-
-                file_put_contents($compiled_directory . '/db.' . $d['domain'], $zone_prefix . $custom_zone_contents);
+                $full_file = $compiled_directory . '/db.' . $d['domain'];
+                if (Configuration::get('debug')) {
+                    $this->out("-------------------- FILE " . $full_file . " ----------------------");
+                    $this->out($zone_dns_header . $custom_zone_contents);
+                }  else {
+                    file_put_contents($full_file, $zone_dns_header . $custom_zone_contents);
+                }
             } else {
                 // Use the default zone
                 $compiled_zones_content .= '
@@ -126,6 +131,11 @@ class Domains extends CLI {
                     ';
         }
 
-        file_put_contents($compiled_zones_master_file, $compiled_zones_content);
+        if (Configuration::get('debug')) {
+            $this->out("-------------------- FILE " . $compiled_zones_master_file . " ----------------------");
+            $this->out($compiled_zones_content);
+        }  else {
+            file_put_contents($compiled_zones_master_file, $compiled_zones_content);
+        }
     }
 }
