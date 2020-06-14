@@ -5,7 +5,7 @@ namespace lightningsdk\sitemanager\Jobs;
 use lightningsdk\core\Jobs\Mailer;
 use lightningsdk\core\Tools\Configuration;
 use lightningsdk\core\Tools\Mailer as MailerTool;
-use lightningsdk\sitemanagerr\Model\Site;
+use lightningsdk\sitemanager\Model\Site;
 
 class AutoMailer extends Mailer {
 
@@ -28,8 +28,5 @@ class AutoMailer extends Mailer {
     protected function switchToSite($site_id) {
         $site = Site::loadByID($site_id);
         $this->out('Loading config for: ' . $site->domain);
-        Site::setInstance($site);
-        Configuration::reload();
-        $site->updateConfig();
     }
 }

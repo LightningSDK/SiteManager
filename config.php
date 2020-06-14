@@ -10,11 +10,11 @@ return [
             'affiliate/mysales' => lightningsdk\sitemanager\Pages\Checkout\AffiliateSales::class,
             'admin/affiliates' => lightningsdk\sitemanager\Pages\Checkout\Admin\Affiliates::class,
 
-            'admin/contact' => \Source\SiteAdmin\Contact::class,
-            'admin/mailing/lists' => \Source\SiteAdmin\Mailing\Lists::class,
-            'admin/mailing/messages' => \Source\SiteAdmin\Mailing\Messages::class,
-            'admin/mailing/stats' => \Source\SiteAdmin\Mailing\Stats::class,
-            'admin/mailing/templates' => \Source\SiteAdmin\Mailing\Templates::class,
+            'admin/contact' => lightningsdk\sitemanager\Pages\Admin\Contact::class,
+            'admin/mailing/lists' => lightningsdk\sitemanager\Pages\Admin\Mailing\Lists::class,
+            'admin/mailing/messages' => lightningsdk\sitemanager\Pages\Admin\Mailing\Messages::class,
+            'admin/mailing/stats' => lightningsdk\sitemanager\Pages\Admin\Mailing\Stats::class,
+            'admin/mailing/templates' => lightningsdk\sitemanager\Pages\Admin\Mailing\Templates::class,
             'admin/pages' => lightningsdk\sitemanager\Pages\Admin\Pages::class,
             'admin/widgets' => lightningsdk\sitemanager\Pages\Admin\Pages::class,
             'admin/users' => lightningsdk\sitemanager\Pages\Admin\Users::class,
@@ -31,6 +31,7 @@ return [
     'classes' => [
         lightningsdk\core\Model\Mailing\Lists::class => lightningsdk\sitemanager\Model\Mailing\Lists::class,
         lightningsdk\core\Model\Page::class => lightningsdk\sitemanager\Model\Page::class,
+        lightningsdk\core\Model\User::class => lightningsdk\sitemanager\Model\User::class,
     ],
     'jobs' => [
         'checkout-mailer' => [

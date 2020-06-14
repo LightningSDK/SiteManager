@@ -5,7 +5,7 @@ namespace lightningsdk\sitemanager\Pages\Admin;
 use lightningsdk\core\Tools\ClientUser;
 use lightningsdk\core\Tools\Configuration;
 use Source\Model\Permissions;
-use lightningsdk\sitemanagerr\Model\Site;
+use lightningsdk\sitemanager\Model\Site;
 
 class Pages extends \lightningsdk\core\Pages\Admin\Pages {
 

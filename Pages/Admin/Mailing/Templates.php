@@ -2,7 +2,7 @@
 
 namespace lightningsdk\sitemanager\Pages\Admin\Mailing;
 
-use lightningsdk\sitemanagerr\Model\Site;
+use lightningsdk\sitemanager\Model\Site;
 
 class Templates extends \lightningsdk\core\Pages\Mailing\Templates {
     protected function initSettings() {

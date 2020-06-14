@@ -5,7 +5,7 @@ namespace Source\SiteAdmin;
 use Source\Model\Permissions;
 use lightningsdk\core\Pages\Table;
 use lightningsdk\core\Tools\ClientUser;
-use lightningsdk\sitemanagerr\Model\Site;
+use lightningsdk\sitemanager\Model\Site;
 
 class Settings extends Table {
     const TABLE = 'site';

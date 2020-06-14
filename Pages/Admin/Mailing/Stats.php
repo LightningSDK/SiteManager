@@ -1,6 +1,6 @@
 <?php
 
-namespace Source\SiteAdmin\Mailing;
+namespace lightningsdk\sitemanager\Pages\Admin\Mailing;
 
 use lightningsdk\core\Tools\ClientUser;
 

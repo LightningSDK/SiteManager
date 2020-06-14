@@ -7,7 +7,7 @@ use lightningsdk\core\Tools\Database;
 use lightningsdk\core\Tools\Request;
 use Source\Model\Permissions;
 use lightningsdk\core\Tools\ClientUser;
-use lightningsdk\sitemanagerr\Model\Site;
+use lightningsdk\sitemanager\Model\Site;
 
 class Sites extends Table {
 

@@ -6,7 +6,7 @@ use lightningsdk\core\Pages\Table;
 use lightningsdk\core\Tools\ClientUser;
 use lightningsdk\core\Tools\Request;
 use Source\Model\Permissions;
-use lightningsdk\sitemanagerr\Model\Site;
+use lightningsdk\sitemanager\Model\Site;
 
 class Subdomains extends Table {
 

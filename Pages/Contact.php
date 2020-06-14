@@ -2,7 +2,7 @@
 
 namespace Source\SiteAdmin;
 
-use lightningsdk\sitemanagerr\Model\Site;
+use lightningsdk\sitemanager\Model\Site;
 
 class Contact extends \lightningsdk\core\Pages\Admin\Contact {
     protected function initSettings() {

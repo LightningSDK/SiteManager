@@ -6,7 +6,7 @@
 
 namespace lightningsdk\sitemanager\Pages\Admin\Mailing;
 
-use lightningsdk\sitemanagerr\Model\Site;
+use lightningsdk\sitemanager\Model\Site;
 
 /**
  * A page handler for editing bulk mailer messages.

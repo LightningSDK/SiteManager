@@ -3,7 +3,7 @@
 namespace lightningsdk\sitemanager\Model\Mailing;
 
 use lightningsdk\core\Tools\Database;
-use lightningsdk\sitemanagerr\Model\Site;
+use lightningsdk\sitemanager\Model\Site;
 
 class Lists extends \lightningsdk\core\Model\Mailing\ListsOverridable {
     public static function loadOptions($name_field, $where = []) {
