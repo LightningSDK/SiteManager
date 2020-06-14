@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\SiteManager\Pages;
+namespace lightningsdk\sitemanager\Pages\Admin\Config;
 
-use Lightning\Pages\Table;
-use Lightning\Tools\ClientUser;
-use Lightning\Tools\Configuration;
-use Lightning\Tools\Database;
-use Lightning\Tools\Request;
-use Lightning\Tools\Scrub;
+use lightningsdk\core\Pages\Table;
+use lightningsdk\core\Tools\ClientUser;
+use lightningsdk\core\Tools\Configuration;
+use lightningsdk\core\Tools\Database;
+use lightningsdk\core\Tools\Request;
+use lightningsdk\core\Tools\Scrub;
 use Source\Model\Permissions;
 use Source\Model\Site;
 

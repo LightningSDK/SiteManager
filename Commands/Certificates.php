@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\SiteManager\Commands;
+namespace lightningsdk\sitemanager\Commands;
 
-use Lightning\CLI\CLI;
-use Lightning\Tools\Configuration;
-use Lightning\Tools\Database;
-use Lightning\Tools\Template;
+use lightningsdk\core\CLI\CLI;
+use lightningsdk\core\Tools\Configuration;
+use lightningsdk\core\Tools\Database;
+use lightningsdk\core\Tools\Template;
 
 class Certificates extends CLI {
 
@@ -16,7 +16,7 @@ class Certificates extends CLI {
     public function executeUpdate () {
         // This only updates SSL sites because they need a custom entry for an ssl file
         // This assumes the certificate has been created with: certbot-auto ^Crtonly --webroot -w /var/www/sites -d concurrency.me -d www.concurrency.me
-        $this->cert_path = Configuration::get('modules.site-manager.cert-path');
+        $this->cert_path = Configuration::get('modules.sitemanager.cert-path');
         $this->webroot = HOME_PATH;
         $domains = Database::getInstance()->selectAll('site', ['requires_ssl' => 1, 'enabled' => 1]);
 

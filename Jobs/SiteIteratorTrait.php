@@ -1,9 +1,9 @@
 <?php
 
-namespace Modules\SiteManager\Jobs;
+namespace lightningsdk\sitemanager\Jobs;
 
 use Exception;
-use Lightning\Tools\Configuration;
+use lightningsdk\core\Tools\Configuration;
 use Source\Model\Site;
 
 trait SiteIteratorTrait {

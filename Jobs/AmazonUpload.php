@@ -1,8 +1,8 @@
 <?php
 
-namespace Modules\SiteManager\Jobs;
+namespace lightningsdk\sitemanager\Jobs;
 
-class AmazonUpload extends \Modules\Checkout\Jobs\AmazonUpload {
+class AmazonUpload extends \lightningsdk\checkout\Jobs\AmazonUpload {
 
     use SiteIteratorTrait;
 

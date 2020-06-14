@@ -1,23 +1,23 @@
 <?php
 
-namespace Modules\SiteManager\Commands;
+namespace lightningsdk\sitemanager\Commands;
 
-use Lightning\CLI\CLI;
-use Lightning\Tools\Configuration;
-use Lightning\Tools\Database;
+use lightningsdk\core\CLI\CLI;
+use lightningsdk\core\Tools\Configuration;
+use lightningsdk\core\Tools\Database;
 
 class Domains extends CLI {
     public function executeUpdate () {
         $domains = Database::getInstance()->selectAll('site', ['enabled' => 1]);
         $compiled_zones_content = '';
-        $ipv4 = Configuration::get('modules.site-manager.dns.ipv4');
-        $ipv6 = Configuration::get('modules.site-manager.dns.ipv6');
-        $postmaster = Configuration::get('modules.site-manager.dns.dmarc.postmaster');
-        $zone_dns_header = file_get_contents(Configuration::get('modules.site-manager.dns.bind9.zone-template-dns-header'));
-        $zone_mail = file_get_contents(Configuration::get('modules.site-manager.dns.bind9.zone-template-mail'));
-        $compiled_directory = Configuration::get('modules.site-manager.dns.bind9.compiled-directory');
-        $generic_domain = Configuration::get('modules.site-manager.dns.bind9.generic-domain-config');
-        $compiled_zones_master_file = Configuration::get('modules.site-manager.dns.bind9.compiled-zones-master-file');
+        $ipv4 = Configuration::get('modules.sitemanager.dns.ipv4');
+        $ipv6 = Configuration::get('modules.sitemanager.dns.ipv6');
+        $postmaster = Configuration::get('modules.sitemanager.dns.dmarc.postmaster');
+        $zone_dns_header = file_get_contents(Configuration::get('modules.sitemanager.dns.bind9.zone-template-dns-header'));
+        $zone_mail = file_get_contents(Configuration::get('modules.sitemanager.dns.bind9.zone-template-mail'));
+        $compiled_directory = Configuration::get('modules.sitemanager.dns.bind9.compiled-directory');
+        $generic_domain = Configuration::get('modules.sitemanager.dns.bind9.generic-domain-config');
+        $compiled_zones_master_file = Configuration::get('modules.sitemanager.dns.bind9.compiled-zones-master-file');
         if (!Configuration::get('debug')) {
             mkdir($compiled_directory, 755, true);
         }

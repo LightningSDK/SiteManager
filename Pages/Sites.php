@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\SiteManager\Pages;
+namespace lightningsdk\sitemanager\Pages;
 
-use Lightning\Model\Permissions;
-use Lightning\Pages\Table;
-use Lightning\Tools\ClientUser;
-use Lightning\Tools\Database;
-use Lightning\Tools\Request;
+use lightningsdk\core\Model\Permissions;
+use lightningsdk\core\Pages\Table;
+use lightningsdk\core\Tools\ClientUser;
+use lightningsdk\core\Tools\Database;
+use lightningsdk\core\Tools\Request;
 
 class Sites extends Table {
 

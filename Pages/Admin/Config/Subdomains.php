@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\SiteManager\Pages;
+namespace lightningsdk\sitemanager\Pages\Admin\Config;
 
-use Lightning\Pages\Table;
-use Lightning\Tools\ClientUser;
-use Lightning\Tools\Request;
+use lightningsdk\core\Pages\Table;
+use lightningsdk\core\Tools\ClientUser;
+use lightningsdk\core\Tools\Request;
 use Source\Model\Permissions;
 use Source\Model\Site;
 

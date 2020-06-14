@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\SiteManager\Jobs;
+namespace lightningsdk\sitemanager\Jobs;
 
-use Lightning\Jobs\Mailer;
-use Lightning\Tools\Configuration;
-use Lightning\Tools\Mailer as MailerTool;
+use lightningsdk\core\Jobs\Mailer;
+use lightningsdk\core\Tools\Configuration;
+use lightningsdk\core\Tools\Mailer as MailerTool;
 use Source\Model\Site;
 
 class AutoMailer extends Mailer {

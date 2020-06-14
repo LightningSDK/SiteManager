@@ -1,9 +1,9 @@
 <?php
 
-namespace Modules\SiteManager\Jobs;
+namespace lightningsdk\sitemanager\Jobs;
 
-use Modules\Checkout\Jobs\Mail;
-use Modules\Checkout\Model\Order;
+use lightningsdk\checkout\Jobs\Mail;
+use lightningsdk\checkout\Model\Order;
 use Source\Model\Site;
 
 class CheckoutMail extends Mail {

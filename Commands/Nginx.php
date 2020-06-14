@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\SiteManager\Commands;
+namespace lightningsdk\sitemanager\Commands;
 
-use Lightning\CLI\CLI;
-use Lightning\Tools\Configuration;
-use Lightning\Tools\Database;
-use Lightning\Tools\Template;
+use lightningsdk\core\CLI\CLI;
+use lightningsdk\core\Tools\Configuration;
+use lightningsdk\core\Tools\Database;
+use lightningsdk\core\Tools\Template;
 
 class Nginx extends CLI {
 
@@ -20,12 +20,12 @@ class Nginx extends CLI {
     public function executeUpdate () {
         // This only updates SSL sites because they need a custom entry for an ssl file
         // This assumes the certificate has been created with: certbot-auto ^Crtonly --webroot -w /var/www/sites -d concurrency.me -d www.concurrency.me
-        $this->cert_path = Configuration::get('modules.site-manager.cert-path');
-        $compiled_config_file = Configuration::get('modules.site-manager.nginx-config-file');
+        $this->cert_path = Configuration::get('modules.sitemanager.cert-path');
+        $compiled_config_file = Configuration::get('modules.sitemanager.nginx-config-file');
         $domains = Database::getInstance()->selectAll('site', ['requires_ssl' => 1]);
         $this->template = new Template();
         $this->template->setDirectory('');
-        $this->server_template = Configuration::get('modules.site-manager.domain-template');
+        $this->server_template = Configuration::get('modules.sitemanager.domain-template');
 
         $compiled_nginx = '';
         foreach ($domains as $d) {

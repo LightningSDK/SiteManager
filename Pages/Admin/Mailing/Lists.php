@@ -4,7 +4,7 @@
  * lightningsdk\core\Pages\Mailing\MessageLists
  */
 
-namespace Source\SiteAdmin\Mailing;
+namespace lightningsdk\sitemanager\Pages\Admin\Mailing;
 
 use Source\Model\Site;
 
