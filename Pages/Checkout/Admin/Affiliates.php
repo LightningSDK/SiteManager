@@ -2,7 +2,7 @@
 
 namespace lightningsdk\sitemanager\Pages\Checkout\Admin;
 
-use Source\Model\Site;
+use lightningsdk\sitemanagerr\Model\Site;
 
 class Affiliates extends \lightningsdk\checkout\Pages\Admin\Affiliates {
     protected function getAffiliatesDueQuery() {

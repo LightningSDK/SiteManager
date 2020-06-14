@@ -4,7 +4,7 @@ namespace lightningsdk\sitemanager\Jobs;
 
 use Exception;
 use lightningsdk\core\Tools\Configuration;
-use Source\Model\Site;
+use lightningsdk\sitemanagerr\Model\Site;
 
 trait SiteIteratorTrait {
     public function execute($job) {

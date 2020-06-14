@@ -5,8 +5,8 @@ namespace lightningsdk\sitemanager\Pages;
 use lightningsdk\core\Pages\Table;
 use lightningsdk\core\Tools\ClientUser;
 use lightningsdk\core\Tools\Request;
-use Source\Model\Permissions;
-use Source\Model\Site;
+use lightningsdk\core\Model\Permissions;
+use lightningsdk\sitemanager\Model\Site;
 
 class Subdomains extends Table {
 

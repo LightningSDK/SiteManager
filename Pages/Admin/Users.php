@@ -1,6 +1,6 @@
 <?php
 
-namespace Source\SiteAdmin;
+namespace lightningsdk\sitemanager\Pages\Admin;
 
 use lightningsdk\core\Model\Message;
 use lightningsdk\core\Tools\ClientUser;
@@ -8,7 +8,7 @@ use lightningsdk\core\Tools\Database;
 use lightningsdk\core\Tools\Request;
 use lightningsdk\core\View\Field\BasicHTML;
 use lightningsdk\core\View\Field\Text;
-use Source\Model\Site;
+use lightningsdk\sitemanager\Model\Site;
 
 class Users extends \lightningsdk\core\Pages\Admin\Users {
     protected function initSettings() {

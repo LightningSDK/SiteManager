@@ -1,11 +1,11 @@
 <?php
 
-namespace Source\SiteAdmin;
+namespace lightningsdk\sitemanager\Pages\Admin;
 
 use lightningsdk\core\Tools\ClientUser;
 use lightningsdk\core\Tools\Configuration;
 use Source\Model\Permissions;
-use Source\Model\Site;
+use lightningsdk\sitemanagerr\Model\Site;
 
 class Pages extends \lightningsdk\core\Pages\Admin\Pages {
 

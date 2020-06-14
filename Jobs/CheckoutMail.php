@@ -4,7 +4,7 @@ namespace lightningsdk\sitemanager\Jobs;
 
 use lightningsdk\checkout\Jobs\Mail;
 use lightningsdk\checkout\Model\Order;
-use Source\Model\Site;
+use lightningsdk\sitemanagerr\Model\Site;
 
 class CheckoutMail extends Mail {
 

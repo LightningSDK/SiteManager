@@ -5,7 +5,7 @@ namespace lightningsdk\sitemanager\Jobs;
 use lightningsdk\core\Jobs\Mailer;
 use lightningsdk\core\Tools\Configuration;
 use lightningsdk\core\Tools\Mailer as MailerTool;
-use Source\Model\Site;
+use lightningsdk\sitemanagerr\Model\Site;
 
 class AutoMailer extends Mailer {
 
