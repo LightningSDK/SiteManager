@@ -3,7 +3,6 @@
 namespace lightningsdk\sitemanager\Jobs;
 
 use lightningsdk\core\Jobs\Mailer;
-use lightningsdk\core\Tools\Configuration;
 use lightningsdk\core\Tools\Mailer as MailerTool;
 use lightningsdk\sitemanager\Model\Site;
 
