@@ -3,7 +3,6 @@
 return [
     'routes' => [
         'static' => [
-            'admin/sites' => lightningsdk\sitemanager\Pages\Sites::class,
             'admin/sites/emails' => lightningsdk\sitemanager\Pages\Emails::class,
             'admin/sites/subdomains' => lightningsdk\sitemanager\Pages\Subdomains::class,
             'admin/sites/redirects' => lightningsdk\sitemanager\Pages\Redirects::class,
@@ -20,16 +19,19 @@ return [
             'admin/users' => lightningsdk\sitemanager\Pages\Admin\Users::class,
 
             'admin/config' => lightningsdk\sitemanager\Pages\Admin\Config\Main::class,
-            'admin/sites' => \Source\Admin\Sites::class,
+            'admin/sites' => lightningsdk\sitemanager\Pages\Sites::class,
         ],
         'cli_only' => [
             'site-domains' => lightningsdk\sitemanager\Commands\Domains::class,
-            'site-nginx' => \c\Commands\Nginx::class,
+            'site-nginx' => lightningsdk\sitemanager\Commands\Nginx::class,
             'site-certificates' => lightningsdk\sitemanager\Commands\Certificates::class,
         ]
     ],
     'classes' => [
         lightningsdk\core\Model\Mailing\Lists::class => lightningsdk\sitemanager\Model\Mailing\Lists::class,
+        lightningsdk\core\Model\Mailing\Message::class => lightningsdk\sitemanager\Model\Mailing\Message::class,
+        lightningsdk\core\Model\CMS::class => lightningsdk\sitemanager\Model\CMS::class,
+        lightningsdk\core\Model\Message::class => lightningsdk\sitemanager\Model\Mailing\Message::class,
         lightningsdk\core\Model\Page::class => lightningsdk\sitemanager\Model\Page::class,
         lightningsdk\core\Model\User::class => lightningsdk\sitemanager\Model\User::class,
     ],
