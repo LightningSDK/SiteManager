@@ -3,6 +3,7 @@
 return [
     'routes' => [
         'static' => [
+            'admin/css' => lightningsdk\sitemanager\Pages\Admin\CSS::class,
             'admin/sites/emails' => lightningsdk\sitemanager\Pages\Emails::class,
             'admin/sites/subdomains' => lightningsdk\sitemanager\Pages\Subdomains::class,
             'admin/sites/redirects' => lightningsdk\sitemanager\Pages\Redirects::class,

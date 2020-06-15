@@ -12,6 +12,7 @@ use lightningsdk\core\Tools\Navigation;
 use lightningsdk\core\Tools\Output;
 use lightningsdk\core\Tools\Request;
 use lightningsdk\core\Tools\Singleton;
+use lightningsdk\core\View\CSS;
 
 class SiteOverridable extends Singleton {
 
@@ -45,7 +46,7 @@ class SiteOverridable extends Singleton {
         $domain = static::getDomain();
 
         // Load the site settings
-        if ($site_data = Database::getInstance()->selectRow('site', ['domain' => $domain])) {
+        if ($site_data = Database::getInstance()->selectRow(static::TABLE, ['domain' => $domain])) {
             // HTTPS Redirect if required
             static::SSLRedirect($site_data);
             return new static($site_data);
@@ -120,13 +121,13 @@ class SiteOverridable extends Singleton {
             }
             Configuration::merge($config);
         }
-
-        // Override Standard Modules
     }
 
     protected function reinitLightning() {
         ClassLoader::reloadClasses();
         Configuration::loadModules(Configuration::get('modules.include'));
+        // The site will have it's own css file with additions to the basics
+        CSS::add('css/domain/' . $this->domain . '.css');
     }
 
     protected static function checkRedirect($domain) {
@@ -134,8 +135,8 @@ class SiteOverridable extends Singleton {
         if ($redirect = Database::getInstance()->selectRowQuery([
             'from' => 'site_redirect',
             'join' => [
-                'join' => 'site',
-                'using' => 'site_id',
+                'join' => static::TABLE,
+                'using' => static::PRIMARY_KEY,
             ],
             'select' => ['site.domain'],
             'where' => ['site_redirect.domain' => $domain],
