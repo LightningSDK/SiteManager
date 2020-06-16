@@ -124,8 +124,10 @@ class SiteOverridable extends Singleton {
     }
 
     protected function reinitLightning() {
-        ClassLoader::reloadClasses();
+        // Load modules and reinit the class loader
         Configuration::loadModules(Configuration::get('modules.include'));
+        ClassLoader::reloadClasses();
+
         // The site will have it's own css file with additions to the basics
         CSS::add('/css/domain/' . $this->domain . '.css');
     }
