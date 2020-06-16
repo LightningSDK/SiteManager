@@ -2,9 +2,9 @@
 
 namespace lightningsdk\sitemanager\Model;
 
-use lightningsdk\core\Model\PermissionsOverridable;
+use lightningsdk\core\Model\Permissions as CorePermissions;
 
-class Permissions extends PermissionsOverridable {
+class Permissions extends CorePermissions {
     const EDIT_MENU = 102;
     const EDIT_LOCATIONS = 103;
     const EDIT_SITES = 104;

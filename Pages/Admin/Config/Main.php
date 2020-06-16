@@ -5,7 +5,7 @@ namespace lightningsdk\sitemanager\Pages\Admin\Config;
 use lightningsdk\core\Tools\Database;
 use lightningsdk\core\Tools\Messenger;
 use lightningsdk\core\Pages\JSONEditor;
-use Source\Model\Permissions;
+use lightningsdk\sitemanager\Model\Permissions;
 use lightningsdk\core\Tools\ClientUser;
 use lightningsdk\sitemanager\Model\Site;
 
@@ -28,8 +28,6 @@ class Main extends JSONEditor {
         $config = $this->postedData();
         $site = Site::getInstance();
         Database::getInstance()->insert('site_config', ['config' => $config, 'site_id' => $site->id], ['config' => $config]);
-        // TODO: This can be overridden, but at what level?
-//        $site->site_menu = json_decode($site_menu);
         Messenger::message('The new configuration has been applied.');
         $this->redirect();
     }

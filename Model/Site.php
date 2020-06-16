@@ -127,7 +127,7 @@ class SiteOverridable extends Singleton {
         ClassLoader::reloadClasses();
         Configuration::loadModules(Configuration::get('modules.include'));
         // The site will have it's own css file with additions to the basics
-        CSS::add('css/domain/' . $this->domain . '.css');
+        CSS::add('/css/domain/' . $this->domain . '.css');
     }
 
     protected static function checkRedirect($domain) {
