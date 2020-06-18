@@ -36,8 +36,10 @@ class Certificates extends CLI {
             $this->out('Running command: ' . $command);
             if (!Configuration::get('debug')) {
                 exec($command, $resp);
-                print_r($resp);
+                $this->out(implode("\n", $resp));
             }
+        } else {
+            $this->out("Cert already exists for domain: $domain");
         }
     }
 }
