@@ -27,15 +27,6 @@ class Sites extends Table {
         'twitter' => ['note' => 'The twitter name only (no @ symbol).'],
         'linkedin' => ['note' => 'The full URL to the LinkedIn page.'],
         'linkedin_id' => ['note' => 'The linked in page ID (numeric value)'],
-        'home_handler' => [
-            'type' => 'select',
-            'allow_blank' => false,
-            'options' => [
-                'Lightning\Pages\Splash' => 'Default Splash Page',
-                'Lightning\Pages\Blog' => 'Blog Roll',
-                'Source\Pub\Home' => 'Home Splash (Requires template)',
-            ],
-        ],
         'contact' => 'checkbox',
         'directions' => 'checkbox',
         'contact_emails' => 'json',

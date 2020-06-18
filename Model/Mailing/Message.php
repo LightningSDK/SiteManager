@@ -2,11 +2,10 @@
 
 namespace lightningsdk\sitemanager\Model\Mailing;
 
-use lightningsdk\core\Model\Mailing\MessageOverridable;
 use lightningsdk\core\Tools\Database;
 use lightningsdk\sitemanager\Model\Site;
 
-class Message extends MessageOverridable {
+class Message extends \lightningsdk\core\Model\Mailing\MessageOverridable {
     /**
      * Load the lists that this message can be sent to.
      */
