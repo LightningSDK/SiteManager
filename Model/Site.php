@@ -98,9 +98,14 @@ class SiteOverridable extends Singleton {
             // Not debug mode, save the cache.
             $cache = Cache::get(Cache::PERMANENT);
             $cache->set($this->domain . '_config', Configuration::getConfiguration());
-        } else {
-            // Debug Mode
-            Configuration::set('routes.static.test', 'Source\\Pages\\Test');
+        }
+    }
+
+    public function clearCache() {
+        if (!Configuration::get('debug')) {
+            // Not debug mode, save the cache.
+            $cache = Cache::get(Cache::PERMANENT);
+            $cache->unset($this->domain . '_config');
         }
     }
 
