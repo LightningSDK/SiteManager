@@ -10,7 +10,6 @@ return [
             'affiliate/mysales' => lightningsdk\sitemanager\Pages\Checkout\AffiliateSales::class,
             'admin/affiliates' => lightningsdk\sitemanager\Pages\Checkout\Admin\Affiliates::class,
 
-            'admin/contact' => lightningsdk\sitemanager\Pages\Admin\Contact::class,
             'admin/mailing/lists' => lightningsdk\sitemanager\Pages\Admin\Mailing\Lists::class,
             'admin/mailing/messages' => lightningsdk\sitemanager\Pages\Admin\Mailing\Messages::class,
             'admin/mailing/stats' => lightningsdk\sitemanager\Pages\Admin\Mailing\Stats::class,
@@ -32,9 +31,10 @@ return [
         lightningsdk\core\Model\Mailing\Lists::class => lightningsdk\sitemanager\Model\Mailing\Lists::class,
         lightningsdk\core\Model\Mailing\Message::class => lightningsdk\sitemanager\Model\Mailing\Message::class,
         lightningsdk\core\Model\CMS::class => lightningsdk\sitemanager\Model\CMS::class,
-        lightningsdk\core\Model\Message::class => lightningsdk\sitemanager\Model\Mailing\Message::class,
         lightningsdk\core\Model\Page::class => lightningsdk\sitemanager\Model\Page::class,
         lightningsdk\core\Model\User::class => lightningsdk\sitemanager\Model\User::class,
+        // @deprecated - this shouldn't be needed
+        lightningsdk\core\Model\Permissions::class => lightningsdk\sitemanager\Model\Permissions::class,
     ],
     'jobs' => [
         'checkout-mailer' => [
