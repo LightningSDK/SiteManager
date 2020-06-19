@@ -119,6 +119,11 @@ class SiteOverridable extends Singleton {
                     $config['modules']['include'][$key] = $overrides[$include];
                 }
             }
+
+            if (file_exists(HOME_PATH . '/css/domain/' . $this->domain . '.css')) {
+                Configuration::set('modules.site.customDNS', true);
+            }
+
             Configuration::merge($config);
         }
     }
@@ -129,7 +134,9 @@ class SiteOverridable extends Singleton {
         ClassLoader::reloadClasses();
 
         // The site will have it's own css file with additions to the basics
-        CSS::add('/css/domain/' . $this->domain . '.css');
+        if (Configuration::get('modules.site.customDNS')) {
+            CSS::add('/css/domain/' . $this->domain . '.css');
+        }
     }
 
     protected static function checkRedirect($domain) {

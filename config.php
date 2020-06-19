@@ -15,7 +15,7 @@ return [
             'admin/mailing/stats' => lightningsdk\sitemanager\Pages\Admin\Mailing\Stats::class,
             'admin/mailing/templates' => lightningsdk\sitemanager\Pages\Admin\Mailing\Templates::class,
             'admin/pages' => lightningsdk\sitemanager\Pages\Admin\Pages::class,
-            'admin/widgets' => lightningsdk\sitemanager\Pages\Admin\Pages::class,
+            'admin/widgets' => lightningsdk\sitemanager\Pages\Admin\Widgets::class,
             'admin/users' => lightningsdk\sitemanager\Pages\Admin\Users::class,
 
             'admin/config' => lightningsdk\sitemanager\Pages\Admin\Config\Main::class,
