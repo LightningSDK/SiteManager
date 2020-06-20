@@ -7,15 +7,12 @@ use lightningsdk\sitemanager\Model\Site;
 use Source\Model\Permissions;
 
 class Widgets extends \lightningsdk\core\Pages\Admin\Widgets {
+
+    use TableSiteIdTrait;
+
     protected function initSettings() {
         parent::initSettings();
-        $site = Site::getInstance();
-        $this->accessControl['site_id'] = $site->id;
-        $this->preset['site_id'] = [
-            'type' => 'hidden',
-            'default' => $site->id,
-            'force_default_new' => true,
-        ];
+        $this->restrictToSite();
     }
 
     public function hasAccess() {

@@ -8,6 +8,7 @@ use lightningsdk\sitemanager\Model\Permissions;
 use lightningsdk\sitemanager\Model\Site;
 
 class Pages extends \lightningsdk\core\Pages\Admin\Pages {
+    use TableSiteIdTrait;
 
     public function hasAccess() {
         ClientUser::requireLogin();
@@ -15,19 +16,8 @@ class Pages extends \lightningsdk\core\Pages\Admin\Pages {
         return $user->hasPermission(Permissions::EDIT_PAGES) || $user->hasGroupPermission(Permissions::EDIT_PAGES);
     }
 
-    protected function initSettings() {
+    public function initSettings() {
         parent::initSettings();
-        $site = Site::getInstance();
-        $this->accessControl['site_id'] = $site->id;
-        $this->preset['site_id'] = [
-            'type' => 'hidden',
-            'default' => $site->id,
-            'force_default_new' => true,
-        ];
-
-        $this->preset['template'] = [
-            'type' => 'select',
-            'options' => Configuration::get('page_templates'),
-        ];
+        $this->restrictToSite();
     }
 }
