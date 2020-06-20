@@ -29,6 +29,8 @@ class Main extends JSONEditor {
         $site = Site::getInstance();
         Database::getInstance()->insert('site_config', ['config' => $config, 'site_id' => $site->id], ['config' => $config]);
         Messenger::message('The new configuration has been applied.');
+        $site->clearCache();
+
         $this->redirect();
     }
 }
