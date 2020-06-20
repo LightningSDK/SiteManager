@@ -35,7 +35,7 @@ class Settings extends Table {
     public function hasAccess() {
         ClientUser::requireLogin();
         $user = ClientUser::getInstance();
-        return $user->isAdmin() || $user->hasGroupPermission(Permissions::EDIT_SITE);
+        return $user->hasPermission(Permissions::EDIT_SITE);
     }
 
     protected function initSettings() {

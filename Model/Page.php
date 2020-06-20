@@ -2,10 +2,10 @@
 
 namespace lightningsdk\sitemanager\Model;
 
-use lightningsdk\core\Model\PageOverridable;
+use lightningsdk\core\Model\PageCore;
 use lightningsdk\core\Tools\Database;
 
-class Page extends PageOverridable {
+class Page extends PageCore {
     public static function loadByURL($url) {
         return Database::getInstance()->selectRow(
             self::TABLE,

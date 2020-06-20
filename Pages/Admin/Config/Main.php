@@ -16,7 +16,7 @@ class Main extends JSONEditor {
     public function hasAccess() {
         ClientUser::requireLogin();
         $user = ClientUser::getInstance();
-        return $user->hasPermission(Permissions::EDIT_SITE) || $user->hasGroupPermission(Permissions::EDIT_SITE);
+        return $user->hasPermission(Permissions::EDIT_SITE);
     }
 
     public function getJSONData() {

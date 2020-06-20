@@ -2,9 +2,7 @@
 
 namespace lightningsdk\sitemanager\Pages;
 
-use lightningsdk\core\Model\Permissions;
 use lightningsdk\core\Pages\Table;
-use lightningsdk\core\Tools\ClientUser;
 use lightningsdk\core\Tools\Database;
 use lightningsdk\core\Tools\Request;
 
@@ -56,15 +54,16 @@ class Sites extends Table {
     protected $search_fields = ['domain'];
 
     public function hasAccess() {
-        ClientUser::requireLogin();
-        $user = ClientUser::getInstance();
-        if ($user->hasGroupPermission(Permissions::EDIT_SITES)) {
-            $this->accessControl = ['site_group_id' => Site::getInstance()->site_group_id];
-            return true;
-        } elseif ($user->hasPermission(Permissions::EDIT_SITES)) {
-            return true;
-        } else
+//        ClientUser::requireLogin();
+//        $user = ClientUser::getInstance();
+//        if ($user->hasPermission(Permissions::EDIT_SITES)) {
+//            $this->accessControl = ['site_group_id' => Site::getInstance()->site_group_id];
+//            return true;
+//        } elseif ($user->hasPermission(Permissions::EDIT_SITES)) {
+//            return true;
+//        } else {
             return false;
+//        }
     }
 
     protected function afterDuplicate() {

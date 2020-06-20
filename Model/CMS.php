@@ -2,10 +2,10 @@
 
 namespace lightningsdk\sitemanager\Model;
 
-use lightningsdk\core\Model\CMSOverridable;
+use lightningsdk\core\Model\CMSCore;
 use lightningsdk\core\Tools\Database;
 
-class CMS extends CMSOverridable {
+class CMS extends CMSCore {
     /**
      * @param string $name
      * @param integer $site_id

@@ -107,7 +107,7 @@ class Emails extends Table {
 
     public function hasAccess() {
         ClientUser::requireLogin();
-        if (ClientUser::getInstance()->hasGroupPermission(Permissions::EDIT_SITE) || ClientUser::getInstance()->isAdmin()) {
+        if (ClientUser::getInstance()->hasPermission(Permissions::EDIT_SITE)) {
             $site_id = $this->getSiteId();
             if (empty($site_id)) {
                 if (!ClientUser::getInstance()->isAdmin()) {

@@ -13,7 +13,7 @@ class Pages extends \lightningsdk\core\Pages\Admin\Pages {
     public function hasAccess() {
         ClientUser::requireLogin();
         $user = ClientUser::getInstance();
-        return $user->hasPermission(Permissions::EDIT_PAGES) || $user->hasGroupPermission(Permissions::EDIT_PAGES);
+        return $user->hasPermission(Permissions::EDIT_PAGES);
     }
 
     public function initSettings() {

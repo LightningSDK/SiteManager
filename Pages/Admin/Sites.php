@@ -38,10 +38,11 @@ class Sites extends Table {
     public function hasAccess() {
         ClientUser::requireLogin();
         $user = ClientUser::getInstance();
-        if ($user->hasGroupPermission(Permissions::EDIT_SITES)) {
-            $this->accessControl = ['site_group_id' => Site::getInstance()->site_group_id];
-            return true;
-        } elseif ($user->hasPermission(Permissions::EDIT_SITES)) {
+        if ($user->hasPermission(Permissions::EDIT_SITES)) {
+            $siteGroup = $user->siteGroupForPermission(Permissions::EDIT_SITES);
+            if ($siteGroup != 0) {
+                $this->accessControl = ['site_group_id' => $siteGroup];
+            }
             return true;
         } else
             return false;
