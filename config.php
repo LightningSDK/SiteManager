@@ -31,9 +31,9 @@ return [
         lightningsdk\core\Model\Mailing\Lists::class => lightningsdk\sitemanager\Model\Mailing\Lists::class,
         lightningsdk\core\Model\Mailing\Message::class => lightningsdk\sitemanager\Model\Mailing\Message::class,
         lightningsdk\core\Model\CMS::class => lightningsdk\sitemanager\Model\CMS::class,
+        lightningsdk\core\Model\Widget::class => lightningsdk\sitemanager\Model\Widget::class,
         lightningsdk\core\Model\Page::class => lightningsdk\sitemanager\Model\Page::class,
         lightningsdk\core\Model\User::class => lightningsdk\sitemanager\Model\User::class,
-        // @deprecated - this shouldn't be needed
         lightningsdk\core\Model\Permissions::class => lightningsdk\sitemanager\Model\Permissions::class,
     ],
     'jobs' => [
