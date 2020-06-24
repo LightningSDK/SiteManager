@@ -62,16 +62,16 @@ class SiteCore extends Singleton {
         $domain = strtolower(Request::getDomain());
         Configuration::set('cookie_domain', preg_replace('/:.*/', '', $domain));
 
+        // get test domain
+        $testdomain = Configuration::get('modules.sitemanager.testdomain');
+
         // Load the domain from a cookie in debug mode
-        if (Configuration::get('debug')) {
+        if (Configuration::get('debug') || $domain == $testdomain) {
             if ($domain = Request::get('domain')) {
                 Output::setCookie('domain', $domain);
             }
             elseif ($cookieDomain = Request::cookie('domain')) {
                 $domain = $cookieDomain;
-            }
-            elseif ($testdomain = Configuration::get('modules.sitemanager.testdomain')) {
-                $domain = $testdomain;
             }
         }
 
