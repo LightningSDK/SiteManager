@@ -28,7 +28,7 @@ class SiteCore extends Singleton {
             $this->updateConfig();
         }
         $this->cacheConfig();
-        $this->reinitLightning();
+        $this->addSiteExtras();
     }
 
     /**
@@ -133,11 +133,7 @@ class SiteCore extends Singleton {
         }
     }
 
-    protected function reinitLightning() {
-        // Load modules and reinit the class loader
-        Configuration::loadModules(Configuration::get('modules.include'));
-        ClassLoader::reloadClasses();
-
+    protected function addSiteExtras() {
         // The site will have it's own css file with additions to the basics
         if (Configuration::get('modules.site.customDNS')) {
             CSS::add('/css/domain/' . $this->domain . '.css');
