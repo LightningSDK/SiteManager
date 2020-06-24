@@ -55,7 +55,7 @@ class SiteCore extends Singleton {
         // If he domain does not exist, see if there is a redirect entry and forward it.
         static::checkRedirect($domain);
 
-        throw new \Exception('Domain not configured');
+        throw new \Exception("Domain {$domain} not configured");
     }
 
     protected static function getDomain() {

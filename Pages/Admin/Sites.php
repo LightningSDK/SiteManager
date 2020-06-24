@@ -5,44 +5,80 @@ namespace lightningsdk\sitemanager\Pages\Admin;
 use lightningsdk\core\Pages\Table;
 use lightningsdk\core\Tools\Database;
 use lightningsdk\core\Tools\Request;
-use Source\Model\Permissions;
+use lightningsdk\sitemanager\Model\Permissions;
 use lightningsdk\core\Tools\ClientUser;
-use lightningsdk\sitemanager\Model\Site;
 
 class Sites extends Table {
 
     protected $table = 'site';
     protected $key = 'site_id';
 
+    protected $searchable = true;
+    protected $search_fields = ['domain'];
+
     protected $duplicatable = true;
 
     protected $preset = [
-        'menu' => 'checkbox',
-        'reservations' => 'checkbox',
-        'blog' => 'checkbox',
-        'instagram' => ['note' => 'The full URL to the linstagram page.'],
-        'pinterest' => ['note' => 'The full URL to the pinterest page.'],
-        'youtube' => ['note' => 'The full URL to the youtube page.'],
-        'facebook' => ['note' => 'The full URL to the facbeook page.'],
-        'google' => ['note' => 'The full URL to the Google business page.'],
-        'twitter' => ['note' => 'The twitter name only (no @ symbol).'],
-        'linkedin' => ['note' => 'The full URL to the LinkedIn page.'],
-        'linkedin_id' => ['note' => 'The linked in page ID (numeric value)'],
-        'contact' => 'checkbox',
-        'directions' => 'checkbox',
+        'menu' => ['note' => 'DEPRECATED - NO LONGER SUPPORTED'],
+        'reservations' => ['note' => 'DEPRECATED - NO LONGER SUPPORTED'],
+        'image_header' => ['note' => 'DEPRECATED - NO LONGER SUPPORTED'],
+        'template' => ['note' => 'DEPRECATED - DELETE THIS'],
+        'home_handler' => ['note' => 'DEPRECATED - DELETE THIS'],
+        'custom_config' => ['note' => 'DEPRECATED - DELETE THIS'],
+        'splash' => ['note' => 'DEPRECATED - DELETE THIS'],
+        'css' => ['note' => 'DEPRECATED - DELETE THIS'],
+        'managed-css' => ['note' => 'DEPRECATED - DELETE THIS'],
+        'logo' => ['note' => 'DEPRECATED - DELETE THIS'],
+        'blog' => ['note' => 'DEPRECATED - DELETE THIS'],
+        'contact' => ['note' => 'DEPRECATED - DELETE THIS'],
+        'directions' => ['note' => 'DEPRECATED - DELETE THIS'],
+        'site_menu' => ['note' => 'DEPRECATED - MOVE TO CONFIG'],
+        'instagram' => ['note' => 'DEPRECATED - MOVE TO CONFIG - The full URL to the linstagram page.'],
+        'pinterest' => ['note' => 'DEPRECATED - MOVE TO CONFIG - The full URL to the pinterest page.'],
+        'youtube' => ['note' => 'DEPRECATED - MOVE TO CONFIG - The full URL to the youtube page.'],
+        'facebook' => ['note' => 'DEPRECATED - MOVE TO CONFIG - The full URL to the facbeook page.'],
+        'google' => ['note' => 'DEPRECATED - MOVE TO CONFIG - The full URL to the Google business page.'],
+        'twitter' => ['note' => 'DEPRECATED - MOVE TO CONFIG - The twitter name only (no @ symbol).'],
+        'linkedin' => ['note' => 'DEPRECATED - MOVE TO CONFIG - The full URL to the LinkedIn page.'],
+        'linkedin_id' => ['note' => 'DEPRECATED - MOVE TO CONFIG - The linked in page ID (numeric value)'],
         'contact_emails' => 'json',
-        'site_menu' => 'json',
         'site_group_id' => 'hidden',
+        'enabled' => 'checkbox',
+    ];
+
+    protected $action_fields = [
+        'subdomains' => [
+            'display_name' => 'Subdomains',
+            'url' => '/admin/sites/subdomains?site_id=',
+            'type' => 'link',
+        ],
+        'redirects' => [
+            'display_name' => 'Domain Redirects',
+            'url' => '/admin/sites/redirects?site_id=',
+            'type' => 'link',
+        ],
+        'emails' => [
+            'display_name' => 'Email Accounts',
+            'url' => '/admin/sites/emails?site_id=',
+            'type' => 'link',
+        ],
     ];
 
     public function hasAccess() {
         ClientUser::requireLogin();
         $user = ClientUser::getInstance();
         if ($user->hasPermission(Permissions::EDIT_SITES)) {
-            $siteGroup = $user->siteGroupForPermission(Permissions::EDIT_SITES);
-            if ($siteGroup != 0) {
-                $this->accessControl = ['site_group_id' => $siteGroup];
+            $siteGroup = $user->getSiteGroupsForPermission(Permissions::EDIT_SITES);
+            if (empty($siteGroup)) {
+                // This should never happen
+                return false;
             }
+            if (in_array("0", $siteGroup)) {
+                // User has full access for all sites and groups
+                return true;
+            }
+            // There are a limited number of groups.
+            $this->accessControl = ['site_group_id' => ['IN', $siteGroup]];
             return true;
         } else
             return false;

@@ -37,4 +37,21 @@ class User extends UserCore {
         return $this->id == 1;
     }
 
+    public function getSiteGroupsForPermission($permission) {
+        return Database::getInstance()->selectColumnQuery([
+            'select' => ['group_id' => ['expression' => 'distinct(site_group_id)']],
+            'from' => 'user_group_role',
+            'join' => [
+                [
+                    'LEFT JOIN',
+                    'role_permission',
+                    'using(role_id)'
+                ]
+            ],
+            'where' => [
+                'user_id' => $this->id,
+                'permission_id' => $permission,
+            ],
+        ]);
+    }
 }

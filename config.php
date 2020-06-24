@@ -1,5 +1,8 @@
 <?php
 
+// Initialize site configs
+\lightningsdk\sitemanager\Model\Site::getInstance();
+
 return [
     'routes' => [
         'static' => [
@@ -7,6 +10,8 @@ return [
             'admin/sites/emails' => lightningsdk\sitemanager\Pages\Emails::class,
             'admin/sites/subdomains' => lightningsdk\sitemanager\Pages\Subdomains::class,
             'admin/sites/redirects' => lightningsdk\sitemanager\Pages\Redirects::class,
+            'admin/sites/groups' => lightningsdk\sitemanager\Pages\Admin\Permissions\Groups::class,
+            'admin/sites/groups/users' => lightningsdk\sitemanager\Pages\Admin\Permissions\GroupUsers::class,
             'affiliate/mysales' => lightningsdk\sitemanager\Pages\Checkout\AffiliateSales::class,
             'admin/affiliates' => lightningsdk\sitemanager\Pages\Checkout\Admin\Affiliates::class,
 
@@ -19,7 +24,7 @@ return [
             'admin/users' => lightningsdk\sitemanager\Pages\Admin\Users::class,
 
             'admin/config' => lightningsdk\sitemanager\Pages\Admin\Config\Main::class,
-            'admin/sites' => lightningsdk\sitemanager\Pages\Sites::class,
+            'admin/sites' => lightningsdk\sitemanager\Pages\Admin\Sites::class,
         ],
         'cli_only' => [
             'site-domains' => lightningsdk\sitemanager\Commands\Domains::class,
