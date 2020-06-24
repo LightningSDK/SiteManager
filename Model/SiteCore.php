@@ -24,7 +24,7 @@ class SiteCore extends Singleton {
     public function __construct($data) {
         $this->__data = $data;
         $this->initJSONEncodedFields();
-        $config = $this->getConfig();
+        $this->updateConfig();
     }
 
     /**
