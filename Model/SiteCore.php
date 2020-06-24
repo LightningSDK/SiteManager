@@ -24,11 +24,7 @@ class SiteCore extends Singleton {
     public function __construct($data) {
         $this->__data = $data;
         $this->initJSONEncodedFields();
-        if (!$this->loadCachedConfig()) {
-            $this->updateConfig();
-        }
-        $this->cacheConfig();
-        $this->addSiteExtras();
+        $config = $this->getConfig();
     }
 
     /**
@@ -60,15 +56,15 @@ class SiteCore extends Singleton {
 
     protected static function getDomain() {
         $domain = strtolower(Request::getDomain());
-        Configuration::set('cookie_domain', preg_replace('/:.*/', '', $domain));
 
         // get test domain
         $testdomain = Configuration::get('modules.sitemanager.testdomain');
 
         // Load the domain from a cookie in debug mode
         if (Configuration::get('debug') || $domain == $testdomain) {
-            if ($domain = Request::get('domain')) {
-                Output::setCookie('domain', $domain);
+            if ($requestDomain = Request::get('domain')) {
+                $domain = $requestDomain;
+                Output::setCookie('domain', $requestDomain);
             }
             elseif ($cookieDomain = Request::cookie('domain')) {
                 $domain = $cookieDomain;
@@ -79,26 +75,6 @@ class SiteCore extends Singleton {
         $domain = preg_replace('/^www\./', '', $domain);
 
         return $domain;
-    }
-
-    protected function loadCachedConfig() {
-        if (!Configuration::get('debug')) {
-            $cache = Cache::get(Cache::PERMANENT);
-            if ($cached_config = $cache->get($this->domain . '_config')) {
-                // override the entire config
-                Configuration::override($cached_config);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    protected function cacheConfig() {
-        if (!Configuration::get('debug')) {
-            // Not debug mode, save the cache.
-            $cache = Cache::get(Cache::PERMANENT);
-            $cache->set($this->domain . '_config', Configuration::getConfiguration());
-        }
     }
 
     public function clearCache() {
@@ -126,17 +102,12 @@ class SiteCore extends Singleton {
             }
 
             if (file_exists(HOME_PATH . '/css/domain/' . $this->domain . '.css')) {
-                Configuration::set('modules.site.customDNS', true);
+                Configuration::push('page.css.include', '/css/domain/' . $this->domain . '.css');
             }
 
-            Configuration::merge($config);
-        }
-    }
+            $config['cookie_domain'] = preg_replace('/:.*/', '', $this->domain);
 
-    protected function addSiteExtras() {
-        // The site will have it's own css file with additions to the basics
-        if (Configuration::get('modules.site.customDNS')) {
-            CSS::add('/css/domain/' . $this->domain . '.css');
+            Configuration::merge($config);
         }
     }
 
