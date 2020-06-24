@@ -102,7 +102,7 @@ class SiteCore extends Singleton {
             }
 
             if (file_exists(HOME_PATH . '/css/domain/' . $this->domain . '.css')) {
-                Configuration::push('page.css.include', '/css/domain/' . $this->domain . '.css');
+                Configuration::push('page.css.include.site', '/css/domain/' . $this->domain . '.css');
             }
 
             $config['cookie_domain'] = preg_replace('/:.*/', '', $this->domain);
