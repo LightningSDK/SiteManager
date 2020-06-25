@@ -6,6 +6,9 @@ $config = \lightningsdk\sitemanager\Model\Site::getInstance()->getConfig();
 return $config + [
     'routes' => [
         'static' => [
+            'contact' => lightningsdk\sitemanager\Pages\Contact::class,
+            'contact-tech' => lightningsdk\sitemanager\Pages\ContactTech::class,
+
             'admin/css' => lightningsdk\sitemanager\Pages\Admin\CSS::class,
             'admin/sites/emails' => lightningsdk\sitemanager\Pages\Emails::class,
             'admin/sites/subdomains' => lightningsdk\sitemanager\Pages\Subdomains::class,
@@ -15,6 +18,7 @@ return $config + [
             'affiliate/mysales' => lightningsdk\sitemanager\Pages\Checkout\AffiliateSales::class,
             'admin/affiliates' => lightningsdk\sitemanager\Pages\Checkout\Admin\Affiliates::class,
 
+            'admin/contact' => lightningsdk\sitemanager\Pages\Admin\Contact::class,
             'admin/mailing/lists' => lightningsdk\sitemanager\Pages\Admin\Mailing\Lists::class,
             'admin/mailing/messages' => lightningsdk\sitemanager\Pages\Admin\Mailing\Messages::class,
             'admin/mailing/stats' => lightningsdk\sitemanager\Pages\Admin\Mailing\Stats::class,
@@ -67,6 +71,15 @@ return $config + [
                     'compiled-zones-master-file' => '/etc/bind/named.conf.compiled-zones.test',
                 ],
             ]
+        ],
+    ],
+    'menus' => [
+        'admin' => [
+            'Sites' => [
+                'children' => [
+                    'Domains' => '/admin/sites'
+                ],
+            ],
         ],
     ],
 ];

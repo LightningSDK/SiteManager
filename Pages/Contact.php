@@ -1,13 +1,11 @@
 <?php
 
-namespace Source\SiteAdmin;
+namespace lightningsdk\sitemanager\Pages;
 
 use lightningsdk\sitemanager\Model\Site;
 
-class Contact extends \lightningsdk\core\Pages\Admin\Contact {
-    protected function initSettings() {
-        $site = Site::getInstance();
-        $this->accessControl['site_id'] = $site->id;
-        $this->preset['site_id']['value'] = $site->id;
+class Contact extends \lightningsdk\core\Pages\Contact {
+    public function getContactFields() {
+        return parent::getContactFields() + ['site_id' => Site::getInstance()->id];
     }
 }
