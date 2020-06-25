@@ -1,9 +1,9 @@
 <?php
 
 // Initialize site configs
-\lightningsdk\sitemanager\Model\Site::getInstance();
+$config = \lightningsdk\sitemanager\Model\Site::getInstance()->getConfig();
 
-return [
+return $config + [
     'routes' => [
         'static' => [
             'admin/css' => lightningsdk\sitemanager\Pages\Admin\CSS::class,

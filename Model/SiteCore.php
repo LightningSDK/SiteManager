@@ -24,7 +24,6 @@ class SiteCore extends Singleton {
     public function __construct($data) {
         $this->__data = $data;
         $this->initJSONEncodedFields();
-        $this->updateConfig();
     }
 
     /**
@@ -85,7 +84,7 @@ class SiteCore extends Singleton {
         }
     }
 
-    protected function updateConfig() {
+    protected function getConfig() {
         if ($config = Config::loadByID($this->id)) {
             $config = $config->config;
 
@@ -107,8 +106,10 @@ class SiteCore extends Singleton {
 
             $config['cookie_domain'] = preg_replace('/:.*/', '', $this->domain);
 
-            Configuration::merge($config);
+            return $config;
         }
+
+        return [];
     }
 
     protected static function checkRedirect($domain) {
