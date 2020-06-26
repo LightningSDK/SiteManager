@@ -2,7 +2,6 @@
 
 namespace Source\SiteAdmin;
 
-use Source\Model\Permissions;
 use lightningsdk\core\Pages\Table;
 use lightningsdk\core\Tools\ClientUser;
 use lightningsdk\sitemanager\Model\Site;

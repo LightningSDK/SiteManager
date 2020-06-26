@@ -8,7 +8,6 @@ use lightningsdk\core\Tools\Configuration;
 use lightningsdk\core\Tools\Database;
 use lightningsdk\core\Tools\Request;
 use lightningsdk\core\Tools\Scrub;
-use Source\Model\Permissions;
 use lightningsdk\sitemanager\Model\Site;
 
 class Emails extends Table {
