@@ -27,7 +27,6 @@ class Sites extends Table {
         'custom_config' => ['note' => 'DEPRECATED - DELETE THIS'],
         'splash' => ['note' => 'DEPRECATED - DELETE THIS'],
         'css' => ['note' => 'DEPRECATED - DELETE THIS'],
-        'managed-css' => ['note' => 'DEPRECATED - DELETE THIS'],
         'logo' => ['note' => 'DEPRECATED - DELETE THIS'],
         'blog' => ['note' => 'DEPRECATED - DELETE THIS'],
         'contact' => ['note' => 'DEPRECATED - DELETE THIS'],
