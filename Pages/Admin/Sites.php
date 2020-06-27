@@ -21,7 +21,7 @@ class Sites extends Table {
     protected $preset = [
         'menu' => ['note' => 'DEPRECATED - NO LONGER SUPPORTED'],
         'reservations' => ['note' => 'DEPRECATED - NO LONGER SUPPORTED'],
-        'image_header' => ['note' => 'DEPRECATED - NO LONGER SUPPORTED'],
+        'header_image' => ['note' => 'DEPRECATED - NO LONGER SUPPORTED'],
         'template' => ['note' => 'DEPRECATED - DELETE THIS'],
         'home_handler' => ['note' => 'DEPRECATED - DELETE THIS'],
         'custom_config' => ['note' => 'DEPRECATED - DELETE THIS'],
