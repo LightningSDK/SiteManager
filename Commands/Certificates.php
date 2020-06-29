@@ -5,7 +5,6 @@ namespace lightningsdk\sitemanager\Commands;
 use lightningsdk\core\CLI\CLI;
 use lightningsdk\core\Tools\Configuration;
 use lightningsdk\core\Tools\Database;
-use lightningsdk\core\Tools\Template;
 
 class Certificates extends CLI {
 

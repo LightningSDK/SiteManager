@@ -4,7 +4,6 @@ namespace lightningsdk\sitemanager\Model;
 
 use lightningsdk\core\Model\ObjectDatabaseStorage;
 use lightningsdk\core\Tools\Cache\Cache;
-use lightningsdk\core\Tools\ClassLoader;
 use lightningsdk\core\Tools\Configuration;
 use lightningsdk\core\Tools\Database;
 use lightningsdk\core\Tools\Logger;
@@ -12,7 +11,6 @@ use lightningsdk\core\Tools\Navigation;
 use lightningsdk\core\Tools\Output;
 use lightningsdk\core\Tools\Request;
 use lightningsdk\core\Tools\Singleton;
-use lightningsdk\core\View\CSS;
 
 class SiteCore extends Singleton {
 
@@ -20,6 +18,11 @@ class SiteCore extends Singleton {
 
     const TABLE = 'site';
     const PRIMARY_KEY = 'site_id';
+
+    /**
+     * @var Config
+     */
+    protected $config;
 
     public function __construct($data) {
         $this->__data = $data;
@@ -76,6 +79,19 @@ class SiteCore extends Singleton {
         return $domain;
     }
 
+    protected function getCookieDomain() {
+        $domain = strtolower(Request::getDomain());
+
+        // get test domain
+        $testdomain = Configuration::get('modules.sitemanager.testdomain');
+
+        if (Configuration::get('debug') || $domain == $testdomain) {
+            return preg_replace('/:.*/', '', Request::getDomain());
+        } else {
+            return $this->domain;
+        }
+    }
+
     public function clearCache() {
         if (!Configuration::get('debug')) {
             // Not debug mode, save the cache.
@@ -84,9 +100,19 @@ class SiteCore extends Singleton {
         }
     }
 
-    protected function getConfig() {
-        if ($config = Config::loadByID($this->id)) {
-            $config = $config->config;
+    public function getConfig() {
+        /**
+         * @var Config
+         */
+        if ($this->config == null) {
+            $this->loadConfig();
+        }
+
+        return $this->config;
+    }
+
+    protected function loadConfig() {
+        if ($this->config = Config::loadByID($this->id)) {
 
             $overrides = [
                 'lightningsdk/blog' => 'lightningsdk/sitemanager-blog',
@@ -94,22 +120,20 @@ class SiteCore extends Singleton {
             ];
 
             // Override any customizable configs with the sitemanager version
-            foreach ($config['modules']['include'] as $key => $include) {
+            foreach ($this->config->get('modules.include') as $key => $include) {
                 if (!empty($overrides[$include])) {
-                    $config['modules']['include'][$key] = $overrides[$include];
+                    $this->config->set('modules.include.' . $key = $overrides[$include]);
                 }
             }
 
             if (file_exists(HOME_PATH . '/css/domain/' . $this->domain . '.css')) {
-                Configuration::push('page.css.include.site', '/css/domain/' . $this->domain . '.css');
+                $this->config->push('page.css.include.site', '/css/domain/' . $this->domain . '.css');
             }
 
-            $config['cookie_domain'] = preg_replace('/:.*/', '', $this->domain);
-
-            return $config;
+            $this->config->set('cookie_domain', $this->getCookieDomain());
+        } else {
+            $this->config = new Config([]);
         }
-
-        return [];
     }
 
     protected static function checkRedirect($domain) {

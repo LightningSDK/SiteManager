@@ -61,7 +61,7 @@ class Message extends MessageCore {
         }
 
         else {
-            return $db->insert('message_list', ['site_id' => $site->id, 'name' => $list_name]);
+            return $db->insert('message_list', ['site_id' => $site->id, 'name' => $list_name, 'visible' => 0]);
         }
     }
 

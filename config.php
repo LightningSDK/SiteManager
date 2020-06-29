@@ -1,9 +1,9 @@
 <?php
 
 // Initialize site configs
-$config = \lightningsdk\sitemanager\Model\Site::getInstance()->getConfig();
+$config = \lightningsdk\sitemanager\Model\Site::getInstance()->getConfig()->data();
 
-return $config + [
+return $config += [
     'routes' => [
         'static' => [
             'contact' => lightningsdk\sitemanager\Pages\Contact::class,
@@ -29,6 +29,9 @@ return $config + [
 
             'admin/config' => lightningsdk\sitemanager\Pages\Admin\Config\Main::class,
             'admin/sites' => lightningsdk\sitemanager\Pages\Admin\Sites::class,
+
+            // admin only
+            'api/sitemanager/config' => lightningsdk\sitemanager\API\Configurations::class,
         ],
         'cli_only' => [
             'site-domains' => lightningsdk\sitemanager\Commands\Domains::class,
@@ -44,6 +47,7 @@ return $config + [
         lightningsdk\core\Model\Page::class => lightningsdk\sitemanager\Model\Page::class,
         lightningsdk\core\Model\User::class => lightningsdk\sitemanager\Model\User::class,
         lightningsdk\core\Model\Permissions::class => lightningsdk\sitemanager\Model\Permissions::class,
+        lightningsdk\core\View\Page::class => lightningsdk\sitemanager\View\Page::class,
     ],
     'jobs' => [
         'checkout-mailer' => [
@@ -79,6 +83,13 @@ return $config + [
                 'children' => [
                     'Domains' => '/admin/sites'
                 ],
+            ],
+        ],
+    ],
+    'compiler' => [
+        'js' => [
+            'lightningsdk/sitemanager' => [
+                'js/config.js' => 'admin.min.js',
             ],
         ],
     ],
