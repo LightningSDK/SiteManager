@@ -29,7 +29,7 @@ class Config extends BaseObject {
     }
 
     public function getMissingCriticalElements() {
-        $criticalElements = ['image_path'];
+        $criticalElements = [];
         $missing = [];
         foreach ($criticalElements as $element) {
             if (!$this->get($element)) {
