@@ -122,7 +122,7 @@ class SiteCore extends Singleton {
             // Override any customizable configs with the sitemanager version
             foreach ($this->config->get('modules.include') as $key => $include) {
                 if (!empty($overrides[$include])) {
-                    $this->config->set('modules.include.' . $key = $overrides[$include]);
+                    $this->config->set('modules.include.' . $key, $overrides[$include]);
                 }
             }
 
