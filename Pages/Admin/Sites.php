@@ -10,8 +10,8 @@ use lightningsdk\core\Tools\ClientUser;
 
 class Sites extends Table {
 
-    protected $table = 'site';
-    protected $key = 'site_id';
+    const TABLE = 'site';
+    const PRIMARY_KEY = 'site_id';
 
     protected $searchable = true;
     protected $search_fields = ['domain'];
@@ -44,6 +44,8 @@ class Sites extends Table {
         'site_group_id' => 'hidden',
         'enabled' => 'checkbox',
     ];
+
+    protected $sort = ['site_id' => 'DESC'];
 
     protected $action_fields = [
         'subdomains' => [

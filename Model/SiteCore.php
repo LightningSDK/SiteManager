@@ -64,7 +64,7 @@ class SiteCore extends Singleton {
 
         // Load the domain from a cookie in debug mode
         if (Configuration::get('debug') || $domain == $testdomain) {
-            if ($requestDomain = Request::get('domain')) {
+            if ($requestDomain = Request::query('domain')) {
                 $domain = $requestDomain;
                 Output::setCookie('domain', $requestDomain);
             }
