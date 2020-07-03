@@ -150,7 +150,7 @@ class SiteCore extends Singleton {
             $source = Request::getURLWithParams();
             $destination = 'http://' . $redirect['domain'];
             Logger::info("Redirecting requested domain from [{$source}] to [{$destination}]");
-            Navigation::redirect($destination, [], true);
+            Navigation::redirect($destination, $_GET, true);
         }
     }
 
