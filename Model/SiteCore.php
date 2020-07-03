@@ -29,6 +29,22 @@ class SiteCore extends Singleton {
         $this->initJSONEncodedFields();
     }
 
+    public static function loadByDomain($domain) {
+        return Database::getInstance()->selectRow(static::TABLE, ['domain' => $domain]);
+    }
+
+    public static function loadRedirectByDomain($domain) {
+        return Database::getInstance()->selectRowQuery([
+            'from' => 'site_redirect',
+            'join' => [
+                'join' => static::TABLE,
+                'using' => static::PRIMARY_KEY,
+            ],
+            'select' => ['site.domain', 'site.requires_ssl'],
+            'where' => ['site_redirect.domain' => $domain],
+        ]);
+    }
+
     /**
      * When the site singleton is initiated, we also check for and handle redirects.
      * Rediercts might also be handled by the router.
@@ -44,7 +60,7 @@ class SiteCore extends Singleton {
         $domain = static::getDomain();
 
         // Load the site settings
-        if ($site_data = Database::getInstance()->selectRow(static::TABLE, ['domain' => $domain])) {
+        if ($site_data = static::loadByDomain($domain)) {
             // HTTPS Redirect if required
             static::SSLRedirect($site_data);
             return new static($site_data);
@@ -138,20 +154,12 @@ class SiteCore extends Singleton {
 
     protected static function checkRedirect($domain) {
         // If it's not a site, see if it's a redirect
-        if ($redirect = Database::getInstance()->selectRowQuery([
-            'from' => 'site_redirect',
-            'join' => [
-                'join' => static::TABLE,
-                'using' => static::PRIMARY_KEY,
-            ],
-            'select' => ['site.domain'],
-            'where' => ['site_redirect.domain' => $domain],
-        ])) {
+        if ($redirect = static::loadRedirectByDomain($domain)) {
             $source = Request::getURLWithParams();
             $params = $_GET;
             unset($params['request']);
-
-            $destination = 'http://' . $redirect['domain'] . Request::get('request') . (!empty($params) ? '?' . http_build_query($params) : '');
+            $proto = $redirect['requires_ssl'] == 1 ? 'https://' : 'http://';
+            $destination = $proto . $redirect['domain'] . Request::get('request') . (!empty($params) ? '?' . http_build_query($params) : '');
             Logger::info("Redirecting requested domain from [{$source}] to [{$destination}]");
             Navigation::redirect($destination, [], true);
         }
