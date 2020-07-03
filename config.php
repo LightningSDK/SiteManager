@@ -3,7 +3,7 @@
 // Initialize site configs
 $config = \lightningsdk\sitemanager\Model\Site::getInstance()->getConfig()->data();
 
-return $config += [
+return array_merge_recursive($config, [
     'routes' => [
         'static' => [
             'contact' => lightningsdk\sitemanager\Pages\Contact::class,
@@ -94,4 +94,4 @@ return $config += [
             ],
         ],
     ],
-];
+]);
