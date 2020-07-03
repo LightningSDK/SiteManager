@@ -28,6 +28,7 @@ return $config += [
             'admin/users' => lightningsdk\sitemanager\Pages\Admin\Users::class,
 
             'admin/config' => lightningsdk\sitemanager\Pages\Admin\Config\Main::class,
+            'admin/setup' => lightningsdk\sitemanager\Pages\Setup::class,
             'admin/sites' => lightningsdk\sitemanager\Pages\Admin\Sites::class,
 
             // admin only

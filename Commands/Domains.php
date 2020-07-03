@@ -19,7 +19,9 @@ class Domains extends CLI {
         $generic_domain = Configuration::get('modules.sitemanager.dns.bind9.generic-domain-config');
         $compiled_zones_master_file = Configuration::get('modules.sitemanager.dns.bind9.compiled-zones-master-file');
         if (!Configuration::get('debug')) {
-            mkdir($compiled_directory, 755, true);
+            if (!is_dir($compiled_directory)) {
+                mkdir($compiled_directory, 755, true);
+            }
         }
         foreach ($domains as $d) {
             $subdomains = Database::getInstance()->selectAll('site_subdomain', ['site_id' => $d['site_id']]);

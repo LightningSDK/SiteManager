@@ -18,9 +18,13 @@ class Config extends BaseObject {
 
     protected $__json_encoded_fields = ['config' => ['type' => 'array']];
 
+    public function init() {
+        JS::startup('lightning.modules.sitemanager.initAdmin();', ['lightningsdk/sitemanager' => 'js/config.js']);
+    }
+
     public function generateMissingCriticalElementAlerts() {
         if (ClientUser::getInstance()->isAdmin()) {
-            JS::startup('lightning.modules.sitemanager.initAdmin();', ['lightningsdk/sitemanager' => 'js/config.js']);
+            $this->init();
             $configs = $this->getMissingCriticalElements();
             foreach ($configs as $config) {
                 Messenger::error("Critical configuration missing: {$config} <a href='#' class='set-configuration' data-configuration='{$config}'>Configure</a>");
