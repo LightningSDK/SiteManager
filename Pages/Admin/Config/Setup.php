@@ -1,6 +1,6 @@
 <?php
 
-namespace lightningsdk\sitemanager\Pages;
+namespace lightningsdk\sitemanager\Pages\Admin\Config;
 
 use lightningsdk\core\Model\Permissions;
 use lightningsdk\core\Tools\ClientUser;
