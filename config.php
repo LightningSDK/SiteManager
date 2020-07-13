@@ -4,6 +4,12 @@
 $config = \lightningsdk\sitemanager\Model\Site::getInstance()->getConfig()->data();
 
 return array_merge_recursive($config, [
+    'jobs' => [
+        'auto-mailer' => [
+            // Override the auto mailer
+            'class' => \lightningsdk\sitemanager\Jobs\AutoMailer::class,
+        ],
+    ],
     'routes' => [
         'static' => [
             'contact' => lightningsdk\sitemanager\Pages\Contact::class,
@@ -49,16 +55,6 @@ return array_merge_recursive($config, [
         lightningsdk\core\Model\User::class => lightningsdk\sitemanager\Model\User::class,
         lightningsdk\core\Model\Permissions::class => lightningsdk\sitemanager\Model\Permissions::class,
         lightningsdk\core\View\Page::class => lightningsdk\sitemanager\View\Page::class,
-    ],
-    'jobs' => [
-        'checkout-mailer' => [
-            // Override the checkout mailer
-            'class' => \lightningsdk\sitemanager\Jobs\CheckoutMail::class,
-        ],
-        'auto-mailer' => [
-            // Override the auto mailer
-            'class' => \lightningsdk\sitemanager\Jobs\AutoMailer::class,
-        ],
     ],
     'modules' => [
         'sitemanager' => [
