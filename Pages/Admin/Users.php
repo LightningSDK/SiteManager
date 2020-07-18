@@ -8,9 +8,11 @@ use lightningsdk\core\Tools\Database;
 use lightningsdk\core\Tools\Request;
 use lightningsdk\core\View\Field\BasicHTML;
 use lightningsdk\core\View\Field\Text;
+use lightningsdk\sitemanager\Model\Mailing\Lists;
 use lightningsdk\sitemanager\Model\Site;
 
 class Users extends \lightningsdk\core\Pages\Admin\Users {
+
     protected function initSettings() {
         if (!ClientUser::getInstance()->isTLMAdmin()) {
             $this->editable = false;
@@ -22,12 +24,14 @@ class Users extends \lightningsdk\core\Pages\Admin\Users {
         }
 
         parent::initSettings();
-        $this->accessControl = ['message_list_id' => ['IN', array_keys(Message::getAllLists())]];
+        $this->accessControl = ['message_list_id' => ['IN', array_keys(Lists::getOptions())]];
         $this->accessTable = 'message_list_user';
         $this->accessTableJoin = [
             'join' => 'message_list_user',
             'using' => 'user_id',
         ];
+
+        $this->links['message_list']['access_control']['site_id'] = Site::getInstance()->id;
     }
 
     public function importPostProcess(&$values, &$ids) {

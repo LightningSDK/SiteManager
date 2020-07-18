@@ -24,10 +24,10 @@ class Messages extends \lightningsdk\core\Pages\Mailing\Messages {
         ];
 
         $this->accessControl['site_id'] = $site->id;
-        $this->preset['template_id']['accessControl'] = [
+        $this->preset['template_id']['access_control'] = [
             'site_id' => ['IN', [0, $site->id]]
         ];
-        $this->links['message_list']['accessControl'] = [
+        $this->links['message_list']['access_control'] = [
             'site_id' => $site->id
         ];
     }

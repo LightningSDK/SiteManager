@@ -12,4 +12,14 @@ class Lists extends ListsCore {
             'site_id' => Site::getInstance()->id,
         ], static::PRIMARY_KEY);
     }
+
+    public static function getOptions() {
+        return Database::getInstance()->selectColumn('message_list', 'name', ['site_id' => Site::getInstance()->id], 'message_list_id');
+    }
+
+
+    public static function getAllIDs() {
+        return Database::getInstance()->selectColumn('message_list', 'message_list_id', ['site_id' => Site::getInstance()->id]);
+    }
+
 }

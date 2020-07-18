@@ -13,7 +13,7 @@ class Message extends MessageCore {
     protected function loadLists() {
         if ($this->lists === null) {
             if (!empty($this->any_list)) {
-                $this->lists = static::getAllListIDs();
+                $this->lists = Lists::getAllIDs();
             } else {
                 $this->lists = Database::getInstance()->selectColumnQuery([
                     'select' => 'message_list_id',
@@ -29,14 +29,6 @@ class Message extends MessageCore {
                 ]);
             }
         }
-    }
-
-    public static function getAllLists() {
-        return Database::getInstance()->selectColumn('message_list', 'name', ['site_id' => Site::getInstance()->id], 'message_list_id');
-    }
-
-    public static function getAllListIDs() {
-        return Database::getInstance()->selectColumn('message_list', 'message_list_id', ['site_id' => Site::getInstance()->id]);
     }
 
     public static function validateListID($id) {
