@@ -67,7 +67,7 @@ return array_merge_recursive($config, [
                     'postmaster' => 'postmaster@localhost',
                 ],
                 'bind9' => [
-                    'compiled-directory' => 'compiled-directory/test',
+                    'compiled-directory' => '/etc/bind/compiled',
                     'generic-domain-config' => '/etc/bind/compiled.default.zone.wildcard',
                     'compiled-zones-master-file' => '/etc/bind/named.conf.compiled-zones.test',
                 ],
