@@ -24,26 +24,30 @@ class Domains extends CLI {
             }
         }
         foreach ($domains as $d) {
+            $custom_zone_contents = '';
+
+            $has_custom_mx = false;
+            $has_default_mx = false;
+            $custom_dmarc = false;
+            $custom_root = false;
+            $custom_www = false;
+
             $subdomains = Database::getInstance()->selectAll('site_subdomain', ['site_id' => $d['site_id']]);
             if ($subdomains) {
                 // Use a custom zone
                 $compiled_zones_content .= '
                     zone "' . $d['domain'] . '" in {
                         type master;
-                        file "/etc/bind/compiled/db.' . $d['domain'] . '";
+                        file "/etc/bind/zones/compiled/db.' . $d['domain'] . '";
                     };
                     ';
 
-                $custom_zone_contents = '';
-
-                $has_default_mx = false;
-                $custom_dmarc = false;
-                $custom_root = false;
-                $custom_www = false;
                 foreach ($subdomains as $s) {
                     switch ($s['type']) {
                         case 'MX':
+                            $has_custom_mx = true;
                             if ($s['subdomain'] == '@') {
+                                // hads a default MX and no others are needed
                                 $has_default_mx = true;
                             }
                             $priority = !empty($s['priority']) ? $s['priority'] : 10;
@@ -89,7 +93,7 @@ class Domains extends CLI {
                 }
                 if (!$custom_www) {
                     if ($ipv4) {
-                        $custom_zone_contents .= "\n" . 'www IN ' . $ipv4;
+                        $custom_zone_contents .= "\n" . 'www IN A ' . $ipv4;
                     }
                     if ($ipv6) {
                         $custom_zone_contents .= "\n" . 'www IN AAAA ' . $ipv6;
@@ -101,10 +105,13 @@ class Domains extends CLI {
                 }
 
                 // if the domain did not have a default mail MX record
+                if (!$has_mx) {
+                    // No MX records, add the defaults
+                    $custom_zone_contents .= "\n" . $zone_mail;
+                }
                 if (!$has_default_mx) {
+                    // There is a custom MX record but not for the default zone
                     $custom_zone_contents .= "\n" . '@       IN       MX  10   mail' . "\n";
-                } else {
-                    $custom_zone_contents .= $zone_mail;
                 }
 
                 $full_file = $compiled_directory . '/db.' . $d['domain'];
