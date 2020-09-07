@@ -112,6 +112,7 @@ class Domains extends CLI {
                     $this->out("-------------------- FILE " . $full_file . " ----------------------");
                     $this->out($zone_dns_header . $custom_zone_contents);
                 }  else {
+                    $this->out('Writing to: ' . $full_file);
                     file_put_contents($full_file, $zone_dns_header . $custom_zone_contents);
                 }
             } else {
@@ -137,6 +138,7 @@ class Domains extends CLI {
             $this->out("-------------------- FILE " . $compiled_zones_master_file . " ----------------------");
             $this->out($compiled_zones_content);
         }  else {
+            $this->out('Writing to: ' . $compiled_zones_master_file);
             file_put_contents($compiled_zones_master_file, $compiled_zones_content);
         }
     }
