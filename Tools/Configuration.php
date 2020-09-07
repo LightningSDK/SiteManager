@@ -30,4 +30,9 @@ class Configuration extends ConfigurationCore {
         }
     }
 
+    public static function clearCachedConfiguration() {
+        $cache = Cache::get(Cache::PHP_FILE);
+        $cache->unset(Site::getInstance()->domain . '_config');
+    }
+
 }

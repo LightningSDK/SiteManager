@@ -109,11 +109,7 @@ class SiteCore extends Singleton {
     }
 
     public function clearCache() {
-        if (!Configuration::get('debug')) {
-            // Not debug mode, save the cache.
-            $cache = Cache::get(Cache::PERMANENT);
-            $cache->unset($this->domain . '_config');
-        }
+        Configuration::clearCachedConfiguration();
     }
 
     public function getConfig() {
