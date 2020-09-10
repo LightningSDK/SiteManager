@@ -37,7 +37,7 @@ class Nginx extends CLI {
                     $this->out("Adding redirect {$sd['domain']} => {$d['domain']}");
                     $compiled_nginx .= $this->configureDomain($sd);
                 } else {
-                    $this->out("no certificate for {$sd['domain']} =>  {$d['domain']}");
+                    $this->out("no certificate for redirect domain: {$this->cert_path}{$sd['domain']}/fullchain.pem");
                 }
             }
         }
