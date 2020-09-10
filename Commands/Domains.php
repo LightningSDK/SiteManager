@@ -68,6 +68,14 @@ class Domains extends CLI {
                             }
                             $custom_zone_contents .= "\n" . $s['subdomain'] . ' IN ' . $s['type'] . ' ' . $s['location'];
                             break;
+                        case 'LOCAL':
+                            if ($ipv4) {
+                                $custom_zone_contents .= "\n{$s['subdomain']} IN A $ipv4";
+                            }
+                            if ($ipv6) {
+                                $custom_zone_contents .= "\n{$s['subdomain']} IN AAAA $ipv6";
+                            }
+                            break;
                         case 'TXT':
                             if (strpos($s['location'], '"') !== false && strlen($s['location']) > 100) {
                                 $split = chunk_split($s['location'], 100, "\"\n\"");
