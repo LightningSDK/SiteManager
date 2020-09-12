@@ -5,6 +5,7 @@ namespace lightningsdk\sitemanager\Commands;
 use lightningsdk\core\CLI\CLI;
 use lightningsdk\core\Tools\Configuration;
 use lightningsdk\core\Tools\Database;
+use lightningsdk\core\Tools\Template;
 
 class Domains extends CLI {
     public function executeUpdate () {
@@ -14,7 +15,9 @@ class Domains extends CLI {
         $ipv6 = Configuration::get('modules.sitemanager.dns.ipv6');
         $postmaster = Configuration::get('modules.sitemanager.dns.dmarc.postmaster');
         $zone_dns_header = file_get_contents(Configuration::get('modules.sitemanager.dns.bind9.zone-template-dns-header'));
-        $zone_mail = file_get_contents(Configuration::get('modules.sitemanager.dns.bind9.zone-template-mail'));
+        $zone_mail_file = Configuration::get('modules.sitemanager.dns.bind9.zone-template-mail');
+        $template = Template::getInstance();
+        $zone_mail = $template->adminBuild($zone_mail_file);
         $compiled_directory = Configuration::get('modules.sitemanager.dns.bind9.compiled-directory');
         $generic_domain = Configuration::get('modules.sitemanager.dns.bind9.generic-domain-config');
         $compiled_zones_master_file = Configuration::get('modules.sitemanager.dns.bind9.compiled-zones-master-file');
@@ -34,6 +37,7 @@ class Domains extends CLI {
 
             $subdomains = Database::getInstance()->selectAll('site_subdomain', ['site_id' => $d['site_id']]);
             if ($subdomains) {
+                $this->out("Processing domain: {$d['domain']} using a custom zone");
                 // Use a custom zone
                 $compiled_zones_content .= '
                     zone "' . $d['domain'] . '" in {
@@ -132,6 +136,7 @@ class Domains extends CLI {
                 }
             } else {
                 // Use the default zone
+                $this->out("Processing domain: {$d['domain']} using the default zone.");
                 $compiled_zones_content .= '
                     zone "' . $d['domain'] . '" in {
                         type master;
