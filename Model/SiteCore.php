@@ -30,7 +30,7 @@ class SiteCore extends Singleton {
     }
 
     public static function loadByDomain($domain) {
-        return Database::getInstance()->selectRow(static::TABLE, ['domain' => $domain]);
+        return Database::getInstance()->selectRow(static::TABLE, ['domain' => $domain, 'enabled' => 1]);
     }
 
     public static function loadRedirectByDomain($domain) {
