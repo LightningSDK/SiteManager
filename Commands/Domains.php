@@ -178,6 +178,7 @@ class Domains extends CLI {
         } else {
             // Use the default zone
             $this->out("Processing domain: {$d['domain']} using the default zone.");
+            $this->dmarc_admin_secondary_domains[] = $d['domain'];
             $this->compiled_zones_content .= '
                     zone "' . $d['domain'] . '" in {
                         type master;
